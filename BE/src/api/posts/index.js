@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const postsCrtl = require('./posts.ctrl');
+const postsCrtl = require('./posts.crtl');
 const posts = new Router();
 
 posts.get('/', postsCrtl.list);
