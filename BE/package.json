@@ -11,5 +11,9 @@
   "dependencies": {
     "koa": "^2.13.4"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "eslint-plugin-react": "^7.30.1"
+  }
 }
