@@ -1,19 +1,12 @@
 const Router = require('koa-router');
+const postsCrtl = require('./posts.ctrl');
 const posts = new Router();
 
-const printInfo = (ctx) => {
-  ctx.body = {
-    method: ctx.method,
-    path: ctx.path,
-    params: ctx.params,
-  };
-};
-
-posts.get('/', printInfo);
-posts.post('/', printInfo);
-posts.get('/:id', printInfo);
-posts.delete('/:id', printInfo);
-posts.put('/:id', printInfo);
-posts.patch('/:id', printInfo);
+posts.get('/', postsCrtl.list);
+posts.post('/', postsCrtl.write);
+posts.get('/:id', postsCrtl.read);
+posts.delete('/:id', postsCrtl.remove);
+posts.put('/:id', postsCrtl.replace);
+posts.patch('/:id', postsCrtl.update);
 
 module.exports = posts;
