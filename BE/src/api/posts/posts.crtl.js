@@ -44,7 +44,22 @@ export const remove = async (ctx) => {
     ctx.throw(500, e);
   }
 };
-export const update = async (ctx) => {};
+
+export const update = async (ctx) => {
+  const { id } = ctx.params;
+  try {
+    const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
+      new: true, // 이 값은 업데이트된 데이터를 반환
+    }).exec();
+    if (!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.body = post;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
 // exports.list = (ctx) => {};
 // exports.write = (ctx) => {};
 // exports.read = (ctx) => {};
