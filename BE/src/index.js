@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
@@ -5,8 +6,10 @@ const mongoose = require('mongoose');
 
 const api = require('./api');
 
+const { PORT, MONGO_URL } = process.env;
+
 mongoose
-  .connect('mongodb://localhost:27017/blogger')
+  .connect(MONGO_URL)
   .then(() => {
     console.log('connect to mongoose');
   })
@@ -24,6 +27,6 @@ app.use(bodyParser());
 // app 인스턴스에 라우터 적용
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(4000, (err, res) => {
+app.listen(PORT || 4000, (err, res) => {
   console.log('Listening...');
 });
