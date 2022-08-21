@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import bcrtpt from 'bcrtpt';
+import bcrypt from 'bcrypt';
 
 const UserSchema = new Schema({
   username: String,
@@ -7,12 +7,12 @@ const UserSchema = new Schema({
 });
 // 인스턴스 메소드
 UserSchema.methods.setPassword = async function (password) {
-  const hash = await bcrtpt.hash(password, 10);
+  const hash = await bcrypt.hash(password, 10);
   this.hashedPassword = hash;
 };
 
 UserSchema.methods.checkPassword = async function (password) {
-  const result = await bcrtpt.compare(password, this.hashedPassword);
+  const result = await bcrypt.compare(password, this.hashedPassword);
   return result;
 };
 

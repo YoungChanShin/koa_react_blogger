@@ -1,6 +1,5 @@
 import Router from 'koa-router';
 import * as authCtrl from './auth.crtl';
-
 const auth = new Router();
 
 auth.post('/register', authCtrl.register);
