@@ -25,15 +25,34 @@ export const register = async (ctx) => {
     await user.setPassword(password);
     await user.save();
 
-    const data = user.toJSON();
-
-    delete data.hashedPassword;
-    ctx.body = data;
+    ctx.body = user.serialize();
   } catch (error) {
     ctx.throw(500, error);
   }
 };
 
-export const login = async (ctx) => {};
+export const login = async (ctx) => {
+  const { username, password } = ctx.request.body;
+
+  if (!username || !password) {
+    ctx.status = 401;
+    return;
+  }
+  try {
+    const user = await User.findByUsername(username);
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+    const valid = await user.checkPassword(password);
+    if (!valid) {
+      ctx.status = 401;
+      return;
+    }
+    ctx.body = user.serialize();
+  } catch (error) {
+    ctx.throw(500, error);
+  }
+};
 export const check = async (ctx) => {};
 export const logout = async (ctx) => {};
