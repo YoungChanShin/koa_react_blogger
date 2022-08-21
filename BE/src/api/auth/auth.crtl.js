@@ -21,7 +21,7 @@ export const register = async (ctx) => {
       return;
     }
 
-    const user = new User(username);
+    const user = new User({ username });
     await user.setPassword(password);
     await user.save();
 
